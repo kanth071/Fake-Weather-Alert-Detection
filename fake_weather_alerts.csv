@@ -1,48 +1,49 @@
-Text	Label
-Severe thunderstorm warning in your area until 6 PM	         real
-Flood alert for low-lying areas evacuate immediately	   real
+                     Text	                                      Label
+
+Severe thunderstorm warning in your area until 6 PM	            real
+Flood alert for low-lying areas evacuate immediately	          real
 Heatwave advisory stay hydrated and avoid going outside	        real
 Tornado warning issued take shelter immediately	                real
-Flash flood warning move to higher ground immediately	        real
+Flash flood warning move to higher ground immediately	          real
 Thunderstorms expected in the evening take precautions	        real
-Strong winds up to 80 km/h expected today	                real
-Heavy rainfall expected in coastal regions tonight	        real
-Flooding likely in riverside areas due to heavy rain	        real
+Strong winds up to 80 km/h expected today	                      real
+Heavy rainfall expected in coastal regions tonight	            real
+Flooding likely in riverside areas due to heavy rain	          real
 Local authorities issue warning for possible landslides	        real
-Severe thunderstorm expected in downtown area seek shelter	real
-Heat advisory avoid going outside between 12 PM and 4 PM	real
-Tornado warning issued for northern suburbs	real
-Heavy snowstorm may affect transportation tonight	real
-Local weather station warns of flooding in low areas	real
-Tornado warning canceled conditions returning to normal	real
-Heavy rainfall continues roads may flood in some areas	real
-Lightning and thunderstorms expected tonight	real
-Blizzard warning in northern areas travel not recommended	real
-Severe thunderstorms moving into central city areas	real
-Flash flood warning in downtown evacuate immediately	real
-Hailstorm expected in some regions drive carefully	real
-Heavy rainfall likely in suburbs this evening	real
-Thunderstorm warning in coastal areas until morning	real
-Flood alert lifted river levels returning to normal	real
-Gusty winds expected across coastal districts tonight	real
-Light rainfall predicted throughout the afternoon	real
-Storm clouds moving toward eastern regions	real
-Coastal areas under high wind advisory	real
-Flood warning issued after heavy overnight rain	real
-Rain showers expected during the early morning hours	real
-Possible hailstorm developing in northern districts	real
-Heatwave warning issued for the next three days	real
-Thunderstorm activity increasing this evening	real
-Fog advisory issued for early morning commuters	real
-Moderate rainfall expected across city areas	real
-Storm warning issued for mountain regions	real
-Lightning risk increases during evening storms	real
-Weather department warns of river flooding	real
-Strong wind advisory for coastal fishermen	real
-High humidity levels expected throughout the day	real
-Rainfall may cause traffic disruptions in urban areas	real
-Thunderstorms developing over western districts	real
-Cold wave conditions expected overnight	real
+Severe thunderstorm expected in downtown area seek shelter	    real
+Heat advisory avoid going outside between 12 PM and 4 PM	      real
+Tornado warning issued for northern suburbs	                    real
+Heavy snowstorm may affect transportation tonight             	real
+Local weather station warns of flooding in low areas	          real
+Tornado warning canceled conditions returning to normal       	real
+Heavy rainfall continues roads may flood in some areas        	real
+Lightning and thunderstorms expected tonight	                  real
+Blizzard warning in northern areas travel not recommended	      real
+Severe thunderstorms moving into central city areas	            real
+Flash flood warning in downtown evacuate immediately	          real
+Hailstorm expected in some regions drive carefully              real
+Heavy rainfall likely in suburbs this evening	                  real
+Thunderstorm warning in coastal areas until morning           	real
+Flood alert lifted river levels returning to normal           	real
+Gusty winds expected across coastal districts tonight	          real
+Light rainfall predicted throughout the afternoon             	real
+Storm clouds moving toward eastern regions	                    real
+Coastal areas under high wind advisory	                        real
+Flood warning issued after heavy overnight rain                 real
+Rain showers expected during the early morning hours	          real
+Possible hailstorm developing in northern districts	            real
+Heatwave warning issued for the next three days	                real
+Thunderstorm activity increasing this evening	                  real
+Fog advisory issued for early morning commuters                 real
+Moderate rainfall expected across city areas	                  real
+Storm warning issued for mountain regions	                      real
+Lightning risk increases during evening storms	                real
+Weather department warns of river flooding	                    real
+Strong wind advisory for coastal fishermen	                    real
+High humidity levels expected throughout the day	              real
+Rainfall may cause traffic disruptions in urban areas	          real
+Thunderstorms developing over western districts	                real
+Cold wave conditions expected overnight	                       real
 Snowfall warning issued for higher altitudes	real
 Rain and wind expected through late evening	real
 Cloud cover increasing with chances of rain	real
@@ -91,4 +92,4 @@ Storm energy predicted to shut down global electricity	fake
 Heavy rain will sink the entire city underwater tonight	fake
 Solar flare will erase all digital data worldwide	fake
 Weather satellites detect alien controlled storm	fake
-Rain clouds forming black hole over city	fake
+Rain clouds forming black hole over city	                        fake
