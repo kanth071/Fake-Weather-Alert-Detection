@@ -1,51 +1,94 @@
-"Severe thunderstorm warning in your area until 6 PM.",
-        "Flood alert for low-lying areas, evacuate immediately.",
-        "Heatwave advisory: stay hydrated and avoid going outside.",
-        "Tornado expected in your city, take shelter now.",
-        "Meteor showers tonight will cause power outages across the city.",
-        "Rainstorm today will turn into a hurricane, stay home!",
-        "Snowstorm will last for 5 days and freeze all roads.",
-        "Lightning strikes are expected to hit your home tonight.",
-        "Flash flood warning in your neighborhood, move to higher ground.",
-        "Earthquake predicted by local scientists, buildings may collapse.",
-        "Thunderstorm likely, take precautions if you are outside.",
-        "City water will boil over due to cloud formation, stay indoors.",
-        "Strong winds up to 80 km/h expected today.",
-        "Tsunami coming tomorrow morning, evacuate immediately.",
-        "Heavy rainfall expected, carry umbrella if going outside.",
-        "Solar flare may disrupt all electronic devices today.",
-        "Flooding likely in riverside areas due to heavy rain.",
-        "Hailstorm will cover city streets with ice tonight.",
-        "Local authorities issue a warning for possible landslides.",
-        "Volcano eruption alert, lava may reach city outskirts.",
-        "Severe thunderstorm expected in downtown area, seek shelter.",
-        "Flash flood alert for riverside neighborhoods, move to higher ground.",
-        "Heat advisory issued, avoid going outside between 12–4 PM.",
-        "Tornado touchdown predicted in northern suburbs.",
-        "Meteor shower tonight will cause car accidents.",
-        "Heavy snowstorm may trap residents in cars overnight.",
-        "Lightning will strike all rooftops in the city.",
-        "Flood warning lifted, normal conditions restored.",
-        "Thunderstorm with hail expected in your area.",
-        "Strong winds up to 100 km/h predicted along coastlines.",
-        "Tsunami alert triggered, evacuate immediately.",
-        "Heatwave today, risk of dehydration is high.",
-        "Snowstorm advisory: stay off roads if possible.",
-        "Meteor predicted to hit city center tonight.",
-        "Local weather station warns of flooding in low areas.",
-        "Volcanic eruption expected in nearby mountains, avoid hiking.",
-        "Tornado warning canceled, conditions normal.",
-        "Heavy rainfall continues, roads may flood.",
-        "Earthquake alert: magnitude 7 predicted.",
-        "Lightning expected in multiple neighborhoods tonight.",
-        "Blizzard warning in northern areas, travel not recommended.",
-        "Alien invasion predicted due to storm clouds.",
-        "Severe thunderstorms moving into central city.",
-        "Flash flood in downtown, evacuate immediately.",
-        "Solar flare may destroy all smartphones today.",
-        "Hailstorm covers highways, drive carefully.",
-        "Tsunami waves reach city beaches, evacuation advised.",
-        "Heavy rainfall likely in suburbs this evening.",
-        "Thunderstorm warning in coastal areas until morning.",
-        "Volcano lava flow may reach village outskirts.",
-        "Flood alert lifted, normal river levels restored."
+Text	Label
+Severe thunderstorm warning in your area until 6 PM	         real
+Flood alert for low-lying areas evacuate immediately	   real
+Heatwave advisory stay hydrated and avoid going outside	        real
+Tornado warning issued take shelter immediately	                real
+Flash flood warning move to higher ground immediately	        real
+Thunderstorms expected in the evening take precautions	        real
+Strong winds up to 80 km/h expected today	                real
+Heavy rainfall expected in coastal regions tonight	        real
+Flooding likely in riverside areas due to heavy rain	        real
+Local authorities issue warning for possible landslides	        real
+Severe thunderstorm expected in downtown area seek shelter	real
+Heat advisory avoid going outside between 12 PM and 4 PM	real
+Tornado warning issued for northern suburbs	real
+Heavy snowstorm may affect transportation tonight	real
+Local weather station warns of flooding in low areas	real
+Tornado warning canceled conditions returning to normal	real
+Heavy rainfall continues roads may flood in some areas	real
+Lightning and thunderstorms expected tonight	real
+Blizzard warning in northern areas travel not recommended	real
+Severe thunderstorms moving into central city areas	real
+Flash flood warning in downtown evacuate immediately	real
+Hailstorm expected in some regions drive carefully	real
+Heavy rainfall likely in suburbs this evening	real
+Thunderstorm warning in coastal areas until morning	real
+Flood alert lifted river levels returning to normal	real
+Gusty winds expected across coastal districts tonight	real
+Light rainfall predicted throughout the afternoon	real
+Storm clouds moving toward eastern regions	real
+Coastal areas under high wind advisory	real
+Flood warning issued after heavy overnight rain	real
+Rain showers expected during the early morning hours	real
+Possible hailstorm developing in northern districts	real
+Heatwave warning issued for the next three days	real
+Thunderstorm activity increasing this evening	real
+Fog advisory issued for early morning commuters	real
+Moderate rainfall expected across city areas	real
+Storm warning issued for mountain regions	real
+Lightning risk increases during evening storms	real
+Weather department warns of river flooding	real
+Strong wind advisory for coastal fishermen	real
+High humidity levels expected throughout the day	real
+Rainfall may cause traffic disruptions in urban areas	real
+Thunderstorms developing over western districts	real
+Cold wave conditions expected overnight	real
+Snowfall warning issued for higher altitudes	real
+Rain and wind expected through late evening	real
+Cloud cover increasing with chances of rain	real
+Severe rainstorm approaching southern districts	real
+Winds may exceed 70 km/h during storm activity	real
+Minor flooding possible near riverbanks	real
+Meteor shower tonight will destroy communication towers	fake
+Rainstorm today will turn into a massive hurricane overnight	fake
+Snowstorm will freeze every road in the country	fake
+Lightning will strike every house in the city tonight	fake
+Earthquake predicted exactly at midnight by weather scientists	fake
+Clouds forming above city will cause boiling water	fake
+Solar flare will destroy all mobile phones today	fake
+Meteor predicted to hit the city center tonight	fake
+Alien invasion expected due to unusual storm clouds	fake
+Solar storm will permanently disable all electronics	fake
+Lightning guaranteed to hit every rooftop tonight	fake
+Volcano eruption lava will reach city center today	fake
+Tsunami will destroy the entire coastline tonight	fake
+Weather satellites predict world ending storm	fake
+Storm clouds indicate supernatural weather disaster	fake
+Meteor shower will cause thousands of accidents tonight	fake
+Atmospheric pressure drop means buildings will collapse	fake
+Storm winds will lift all cars into the air	fake
+Rainfall will flood the entire country tonight	fake
+Heatwave will melt roads across the city	fake
+Thunderstorm will shut down the internet worldwide	fake
+Snowstorm will trap every resident indoors for weeks	fake
+Lightning storm will destroy power lines in every area	fake
+Weather radar shows giant storm covering the whole planet	fake
+Rain clouds will trigger volcano eruptions nearby	fake
+Storm will bring rocks falling from the sky	fake
+Lightning storm will shatter every window in the city	fake
+Massive cyclone forming instantly above downtown	fake
+Weather anomaly will reverse gravity during storm	fake
+Tornado will spin across entire continent today	fake
+Rainfall today will cause oceans to overflow	fake
+Hailstones the size of cars expected tonight	fake
+Storm clouds predicted to explode in the sky	fake
+Thunderstorm will generate earthquakes tonight	fake
+Giant hurricane forming suddenly over city buildings	fake
+Storm will remove roofs from every house instantly	fake
+Tornado predicted to destroy entire country tonight	fake
+Meteor storm will wipe out satellites tonight	fake
+Storm energy predicted to shut down global electricity	fake
+Heavy rain will sink the entire city underwater tonight	fake
+Solar flare will erase all digital data worldwide	fake
+Weather satellites detect alien controlled storm	fake
+Rain clouds forming black hole over city	fake
