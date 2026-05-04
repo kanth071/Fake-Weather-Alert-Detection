@@ -2,8 +2,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
-backend/weather_model.pkl
-weather_model.pkl
 
 # Environment
 .env

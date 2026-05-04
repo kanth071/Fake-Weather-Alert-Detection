@@ -1,48 +1,34 @@
 def get_recommendation(temp, condition="", humidity=50):
     """
-    Standard recommendation logic for AUTO MODE.
-    Based on temperature and humidity thresholds.
+    Descriptive recommendation logic consistent with the preferred UI style.
     """
+    condition = condition.lower()
+    
+    if "rain" in condition or "storm" in condition:
+        return f"🌧️ {condition.capitalize()}. High precipitation risk. Carry an umbrella and stay safe."
+    
     if temp >= 30:
-        return "High temperature detected. Stay hydrated and avoid prolonged outdoor exposure."
-    elif 20 <= temp < 30:
-        return "Warm conditions detected. Carry a water bottle if planning outdoor activities."
-    elif temp < 20:
-        if humidity > 70:
-            return "Cold and humid conditions detected. Wear warm clothing and stay dry."
-        else:
-            return "Cold conditions detected (below 20°C). Wear warm clothing and avoid prolonged outdoor exposure."
-    return "Moderate weather conditions detected. Dress comfortably for outdoor activity."
+        if "clear" in condition or "sunny" in condition:
+            return f"☀️ High temperatures today. It is best to stay in shaded or cooled environments."
+        return f"🌡️ Warm conditions. Ensure you have a water bottle if planning a walk."
+        
+    if 20 <= temp < 30:
+        if "cloud" in condition or "overcast" in condition:
+            return f"☁️ {condition.capitalize()}. The weather is relatively mild and good for outdoor errands."
+        return f"🌤️ Pleasant weather detected. Perfect for outdoor activities and travel."
+
+    if temp < 20:
+        return f"❄️ Cold conditions detected ({temp}°C). Wear warm clothing and protect against the chill."
+
+    return "✅ Moderate weather conditions. Dress comfortably for your daily activities."
 
 def manual_recommendation(text, prediction):
     """
     Strict recommendation logic for MANUAL MODE.
-    Focuses on alert verification and sensationalism detection.
     """
     text_lower = text.lower()
     fake_words = [
-        "100%",
-    "for sure",
-    "guaranteed",
-    "definitely",
-    "entire city",
-    "all areas",
-    "completely destroyed",
-    "wipe out",
-    "destroy everything",
-    "end of the city",
-    "never seen before",
-    "massive disaster",
-    "total shutdown",
-    "no chance of survival",
-    "catastrophic storm",
-    "apocalypse weather",
-    "city will sink",
-    "flood whole city",
-    "level the city",
-    "unlimited rainfall",
-    "extreme beyond limits",
-    "worst ever recorded"
+        "100%", "for sure", "guaranteed", "definitely", "entire city", "wipe out", "destroy everything"
     ]
 
     if any(word in text_lower for word in fake_words):
