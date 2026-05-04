@@ -61,3 +61,5 @@ weather-ai-project/
 
 ---
 *Developed as a Production-Level AI Project.*
+
+preview :https://fake-weather-alert-detection.vercel.app/
