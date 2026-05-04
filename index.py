@@ -61,8 +61,6 @@ def predict():
             if any(x in text_lower for x in ["cloud", "overcast"]): cond = "clouds"
         
         from recommendation import manual_recommendation
-        
-        from recommendation import manual_recommendation
         result['recommendation'] = manual_recommendation(text, result['prediction'])
         result['original_text'] = original_text
         result['translated_text'] = text

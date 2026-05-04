@@ -67,8 +67,15 @@ async function fetchWeatherData() {
 }
 
 async function predictManual() {
-    const text = document.getElementById('userText').value;
+    const textEl = document.getElementById('userText');
+    const text = textEl.value.trim();
     if (!text) return;
+    
+    // UI Feedback: Loading
+    const originalStatus = predictionStatus.innerText;
+    predictionStatus.innerText = "Analyzing alert content...";
+    predictionStatus.style.color = "var(--accent-blue)";
+    
     try {
         const response = await fetch(`${API_BASE_URL}/predict`, {
             method: 'POST',
@@ -76,9 +83,16 @@ async function predictManual() {
             body: JSON.stringify({ mode: 'manual', text: text })
         });
         const data = await response.json();
+        if (data.error) {
+            predictionStatus.innerText = "Error: " + data.error;
+            return;
+        }
         updatePredictionPanel(data);
         if (data.detected_city) updateTrendChart(data.detected_city);
-    } catch (error) {}
+    } catch (error) {
+        predictionStatus.innerText = "Connection failed. Please try again.";
+        console.error("Manual prediction error:", error);
+    }
 }
 
 async function searchCity() {
