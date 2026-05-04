@@ -2,50 +2,26 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/app.py",
+      "src": "index.py",
       "use": "@vercel/python"
     },
     {
-      "src": "frontend/**",
+      "src": "*.{html,css,js}",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "backend/app.py"
+      "dest": "index.py"
     },
     {
-      "src": "/predict",
-      "dest": "backend/app.py"
-    },
-    {
-      "src": "/live-weather",
-      "dest": "backend/app.py"
-    },
-    {
-      "src": "/history",
-      "dest": "backend/app.py"
-    },
-    {
-      "src": "/auto-feed",
-      "dest": "backend/app.py"
-    },
-    {
-      "src": "/agent",
-      "dest": "backend/app.py"
-    },
-    {
-      "src": "/(index.html)?",
-      "dest": "/frontend/index.html"
-    },
-    {
-      "src": "/(style.css|script.js)",
-      "dest": "/frontend/$1"
+      "src": "/(predict|live-weather|history|auto-feed|agent)",
+      "dest": "index.py"
     },
     {
       "src": "/(.*)",
-      "dest": "/frontend/$1"
+      "dest": "/$1"
     }
   ]
 }

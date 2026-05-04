@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 model_path = os.path.join(os.path.dirname(__file__), 'weather_model.pkl')
-dataset_path = os.path.join(os.path.dirname(__file__), '..', 'dataset', 'weather_data.csv')
+dataset_path = os.path.join(os.path.dirname(__file__), 'dataset', 'weather_data.csv')
 ml_model = WeatherMLModel(model_path=model_path)
 
 # Initialize Model - Train if missing or load if exists
