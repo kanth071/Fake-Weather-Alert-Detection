@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Weather Intelligence | Production SaaS Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 style="display: flex; align-items: center; justify-content: center; gap: 15px;">
+                <span style="font-size: 0.8em; filter: drop-shadow(0 0 10px var(--accent-blue));">🌍🛰️</span> 
+                AI Weather Intelligence System
+            </h1>
+            <p>Advanced Climate Monitoring & Predictive Risk Analytics</p>
+            
+            <div class="mode-switch" style="background: rgba(255,255,255,0.03); padding: 0.5rem; border-radius: 1.25rem; border: 1px solid var(--glass-border); max-width: fit-content; margin: 2rem auto;">
+                <button id="btnAuto" class="mode-btn active" onclick="setMode('auto')" style="min-width: 160px; justify-content: center;">🌐 Auto Mode</button>
+                <button id="btnManual" class="mode-btn" onclick="setMode('manual')" style="min-width: 160px; justify-content: center;">✏️ Manual Mode</button>
+            </div>
+
+            <!-- Global Intelligence Search -->
+            <div id="searchBox" class="glass-card" style="max-width: 600px; margin: 1rem auto; padding: 0.5rem; display: flex; gap: 0.5rem; border: 1px solid var(--accent-blue); position: relative; z-index: 10;">
+                <input type="text" id="citySearchInput" placeholder="🔍 Search any city globally..." 
+                       onkeypress="if(event.key==='Enter') searchCity()"
+                       style="flex: 1; padding: 0.75rem; border: none; background: transparent; color: white; outline: none;">
+                <button id="searchBtn" class="mode-btn active" onclick="searchCity()" style="padding: 0 1.5rem; border-radius: 0.5rem;">Analyze</button>
+            </div>
+
+            <!-- Manual Input Panel -->
+            <div id="manualInputBox" class="glass-card" style="display: none; max-width: 700px; margin: 1.5rem auto; padding: 1rem;">
+                <div style="display: flex; gap: 0.75rem;">
+                    <input type="text" id="userText" placeholder="e.g., Warning: Heavy rainfall expected in Chennai tomorrow..." 
+                           style="flex: 1; padding: 0.85rem; border-radius: 0.75rem; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white;">
+                    <button class="mode-btn active" onclick="predictManual()" style="padding: 0 2rem;">Predict</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic City Monitor Grid -->
+        <div class="city-grid" id="cityGrid">
+            <!-- City Intelligence Cards will be injected here -->
+        </div>
+
+        <div class="dashboard-main">
+            <!-- Left Column: Intelligence Reports -->
+            <div class="dashboard-left">
+                <div class="glass-card" style="margin-bottom: 2rem;">
+                    <div class="panel-title">🧠 AI Intelligence Report</div>
+                    <div class="prediction-display">
+                        <div id="predictionStatus" style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: 1px;">AWAITING DATA...</div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 1rem 0;">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-weight: 600; font-size: 0.85rem;">Confidence Level</span>
+                                    <span id="confidenceText" style="color: var(--accent-blue);">0%</span>
+                                </div>
+                                <div class="confidence-bar-container">
+                                    <div id="confidenceBar" class="confidence-bar"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-weight: 600; font-size: 0.85rem;">🚨 Climate Risk</span>
+                                    <span id="riskLevelText">LOW</span>
+                                </div>
+                                <div class="confidence-bar-container">
+                                    <div id="riskBar" class="confidence-bar" style="background: linear-gradient(to right, var(--accent-green), var(--accent-yellow), var(--accent-red));"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Explainable AI Section -->
+                    <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--glass-border);">
+                        <div class="panel-title" style="margin-bottom: 1.5rem;">🕵️ Intelligence Analysis (XAI)</div>
+                        <ul id="explanationList" style="list-style: none; color: var(--text-secondary); line-height: 2;">
+                            <li>Deep scanning linguistic vectors...</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Manual Mode Tips (Dynamic) -->
+                <div class="glass-card" id="manualTipsPanel" style="display: none; border: 1px solid var(--accent-yellow); background: rgba(251, 191, 36, 0.05); margin-bottom: 2rem;">
+                    <div class="panel-title" style="color: var(--accent-yellow); margin-bottom: 0.5rem;">💡 Manual Intelligence</div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                        Mention a city name (e.g., Delhi) to sync historical trends and regional risks.
+                    </p>
+                </div>
+
+                <!-- AI Recommendation Engine -->
+                <div class="glass-card">
+                    <div class="panel-title">💡 Smart Recommendation</div>
+                    <div id="recommendationPanel" style="background: rgba(255,255,255,0.03); padding: 1.25rem; border-radius: 1rem; border-left: 4px solid var(--accent-blue); font-size: 1.1rem; line-height: 1.5;">
+                        Select a city to generate lifestyle and safety advice.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Trends & History -->
+            <div class="dashboard-right">
+                <div class="glass-card" style="height: 100%;">
+                    <div class="panel-title">🛡️ Safety & Trend Analysis</div>
+                    <div style="margin: 2rem 0; padding: 1.5rem; background: rgba(255,255,255,0.02); border-radius: 1.5rem;">
+                        <h4 style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 1px;">48h Temp Trend: <span id="trendCity" style="color: var(--accent-blue);">---</span></h4>
+                        
+                        <div style="display: flex; align-items: flex-end; gap: 1.5rem; height: 120px; padding-bottom: 1rem; border-bottom: 1px solid var(--glass-border);">
+                            <div id="barYesterday" style="flex: 1; background: var(--accent-blue); height: 10%; border-radius: 6px 6px 0 0; position: relative; transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);"><span class="bar-val" style="position: absolute; top: -25px; left: 0; width: 100%; text-align: center; font-size: 0.75rem; font-weight: 700;">--</span></div>
+                            <div id="barToday" style="flex: 1; background: var(--accent-yellow); height: 10%; border-radius: 6px 6px 0 0; position: relative; transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);"><span class="bar-val" style="position: absolute; top: -25px; left: 0; width: 100%; text-align: center; font-size: 0.75rem; font-weight: 700;">--</span></div>
+                            <div id="barForecast" style="flex: 1; background: var(--accent-red); height: 10%; border-radius: 6px 6px 0 0; position: relative; transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);"><span class="bar-val" style="position: absolute; top: -25px; left: 0; width: 100%; text-align: center; font-size: 0.75rem; font-weight: 700;">--</span></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary); margin-top: 1rem; font-weight: 600;">
+                            <span>Yesterday</span>
+                            <span>Today</span>
+                            <span>Forecast</span>
+                        </div>
+                    </div>
+
+                    <!-- Safety Status Badges -->
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div style="background: rgba(251, 191, 36, 0.1); padding: 1rem; border-radius: 1rem; border-left: 4px solid var(--accent-yellow);">
+                            <h4 style="color: var(--accent-yellow); font-size: 0.9rem; margin-bottom: 0.25rem;">⚠️ High Temperature Protocol</h4>
+                            <p style="font-size: 0.8rem; color: var(--text-secondary);">Detected warming trend. Stay hydrated.</p>
+                        </div>
+                        <div style="background: rgba(56, 189, 248, 0.1); padding: 1rem; border-radius: 1rem; border-left: 4px solid var(--accent-blue);">
+                            <h4 style="color: var(--accent-blue); font-size: 0.9rem; margin-bottom: 0.25rem;">🌧️ Precipitation Sync</h4>
+                            <p style="font-size: 0.8rem; color: var(--text-secondary);">Humidity levels verified against historic rain data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intelligence Pulse Ticker -->
+        <div class="glass-card" style="margin-top: 2rem; padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 1rem; overflow: hidden; height: 55px;">
+            <div style="background: var(--accent-green); min-width: 10px; height: 10px; border-radius: 50%; animation: pulse 1s infinite;"></div>
+            <div style="font-weight: 800; color: var(--accent-green); white-space: nowrap; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;">Intelligence Pulse:</div>
+            <div id="intelligenceTicker" style="color: var(--text-secondary); font-size: 0.85rem; font-family: monospace; white-space: nowrap; animation: tickerScroll 30s linear infinite;">
+                System Ready... Connecting to OpenWeather Global Nodes... Analyzing Satellite Imagery... ML Confidence Stabilized at 98.4%... All Systems Nominal...
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Agent Bubble -->
+    <div id="aiBubble" class="glass-card" onclick="toggleChat()" style="position: fixed; bottom: 2rem; right: 2rem; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.8rem; z-index: 1000; background: var(--accent-blue); box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4); animation: pulse 2s infinite;">
+        🤖
+    </div>
+
+    <!-- Chat Window -->
+    <div id="chatWindow" class="glass-card" style="display: none; position: fixed; bottom: 6.5rem; right: 2rem; width: 380px; height: 500px; z-index: 1000; border: 1px solid var(--accent-blue); flex-direction: column;">
+        <div style="padding: 1.25rem; border-bottom: 1px solid var(--glass-border); font-weight: 800; display: flex; justify-content: space-between; align-items: center; background: rgba(56, 189, 248, 0.05);">
+            <span>AI Weather Intelligence Agent 🌍</span>
+            <span onclick="toggleChat()" style="cursor: pointer; font-size: 1.5rem; color: var(--text-secondary);">×</span>
+        </div>
+        <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: 1.25rem; font-size: 0.9rem; display: flex; flex-direction: column; gap: 1rem;">
+            <div class="chat-msg ai-msg">
+                Hello! I am your climate intelligence assistant. I analyze trends, predict rain using humidity, and translate any language. How can I help today?
+            </div>
+        </div>
+        <div style="padding: 1rem; border-top: 1px solid var(--glass-border); display: flex; gap: 0.75rem;">
+            <input type="text" id="chatInput" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter') sendChatMessage()" 
+                   style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: white; padding: 0.75rem; border-radius: 0.75rem; outline: none;">
+            <button onclick="sendChatMessage()" style="background: var(--accent-blue); border: none; color: white; padding: 0.75rem 1.25rem; border-radius: 0.75rem; cursor: pointer; font-weight: 800;">Send</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
