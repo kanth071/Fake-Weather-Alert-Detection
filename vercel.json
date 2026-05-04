@@ -1,0 +1,51 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend/app.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "frontend/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/app.py"
+    },
+    {
+      "src": "/history",
+      "dest": "backend/app.py"
+    },
+    {
+      "src": "/live-weather",
+      "dest": "backend/app.py"
+    },
+    {
+      "src": "/auto-feed",
+      "dest": "backend/app.py"
+    },
+    {
+      "src": "/predict",
+      "dest": "backend/app.py"
+    },
+    {
+      "src": "/agent",
+      "dest": "backend/app.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "status": 404,
+      "dest": "/frontend/index.html"
+    }
+  ]
+}
