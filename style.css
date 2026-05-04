@@ -201,8 +201,8 @@ header h1 {
 }
 
 .dashboard-main {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
     gap: 2rem;
 }
 
@@ -291,3 +291,4 @@ header h1 {
 }
 
 /* Removed responsive column override as it is now stacked by default */
+@media (max-width: 1024px) { .dashboard-main { grid-template-columns: 1fr; } }
