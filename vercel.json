@@ -16,7 +16,7 @@
       "dest": "backend/app.py"
     },
     {
-      "src": "/history",
+      "src": "/predict",
       "dest": "backend/app.py"
     },
     {
@@ -24,11 +24,11 @@
       "dest": "backend/app.py"
     },
     {
-      "src": "/auto-feed",
+      "src": "/history",
       "dest": "backend/app.py"
     },
     {
-      "src": "/predict",
+      "src": "/auto-feed",
       "dest": "backend/app.py"
     },
     {
@@ -36,16 +36,16 @@
       "dest": "backend/app.py"
     },
     {
-      "src": "/(.*)",
+      "src": "/(index.html)?",
+      "dest": "/frontend/index.html"
+    },
+    {
+      "src": "/(style.css|script.js)",
       "dest": "/frontend/$1"
     },
     {
-      "handle": "filesystem"
-    },
-    {
       "src": "/(.*)",
-      "status": 404,
-      "dest": "/frontend/index.html"
+      "dest": "/frontend/$1"
     }
   ]
 }

@@ -1,0 +1,8 @@
+flask
+flask-cors
+requests
+scikit-learn
+pandas
+numpy
+deep-translator
+python-dotenv
