@@ -46,19 +46,21 @@ def predict():
         cities = ["vijayawada", "hyderabad", "chennai", "mumbai", "delhi", "kolkata", "bangalore", "pune", 
                   "vizag", "guntur", "nellore", "kurnool", "tirupati", "warangal", "kochi", "patna", "jaipur", 
                   "lucknow", "ahmedabad", "surat", "bhopal", "indore", "chandigarh", "amritsar"]
-        text_lower = text.lower()
-        detected_city = next((c for c in cities if c in text_lower), None)
-        
-        result = ml_model.predict(text=text)
+        weather_data = get_live_weather(detected_city) if detected_city else {}
+        result = ml_model.predict(text=text, weather_data=weather_data)
         result['detected_city'] = detected_city
         
-        # Determine dummy values for manual recommendations based on text
-        temp, cond = 25, "clear"
-        if any(x in text_lower for x in ["hot", "heat", "40c", "fire"]): temp = 40
-        if any(x in text_lower for x in ["cold", "snow", "10c", "winter"]): temp = 10
-        if any(x in text_lower for x in ["rain", "shower", "drizzle"]): cond = "rain"
-        if any(x in text_lower for x in ["thunder", "storm", "lightning"]): cond = "thunderstorm"
-        if any(x in text_lower for x in ["cloud", "overcast"]): cond = "clouds"
+        # Determine dummy values for manual recommendations based on text if city not found
+        temp = weather_data.get('temperature', 25)
+        cond = weather_data.get('condition', 'clear')
+        if not detected_city:
+            if any(x in text_lower for x in ["hot", "heat", "40c", "fire"]): temp = 40
+            if any(x in text_lower for x in ["cold", "snow", "10c", "winter"]): temp = 10
+            if any(x in text_lower for x in ["rain", "shower", "drizzle"]): cond = "rain"
+            if any(x in text_lower for x in ["thunder", "storm", "lightning"]): cond = "thunderstorm"
+            if any(x in text_lower for x in ["cloud", "overcast"]): cond = "clouds"
+        
+        from recommendation import manual_recommendation
         
         from recommendation import manual_recommendation
         result['recommendation'] = manual_recommendation(text, result['prediction'])
