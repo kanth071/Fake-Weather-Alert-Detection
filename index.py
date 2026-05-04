@@ -45,7 +45,11 @@ def predict():
         # Expanded city detection list
         cities = ["vijayawada", "hyderabad", "chennai", "mumbai", "delhi", "kolkata", "bangalore", "pune", 
                   "vizag", "guntur", "nellore", "kurnool", "tirupati", "warangal", "kochi", "patna", "jaipur", 
-                  "lucknow", "ahmedabad", "surat", "bhopal", "indore", "chandigarh", "amritsar"]
+                  "lucknow", "ahmedabad", "surat", "bhopal", "indore", "chandigarh", "amritsar", "london", "new york"]
+        
+        text_lower = text.lower()
+        detected_city = next((c for c in cities if c in text_lower), None)
+        
         weather_data = get_live_weather(detected_city) if detected_city else {}
         result = ml_model.predict(text=text, weather_data=weather_data)
         result['detected_city'] = detected_city
