@@ -190,7 +190,7 @@ function updatePredictionPanel(data) {
     recommendationPanel.innerHTML = `
         <div style="margin-bottom: 10px;">${data.recommendation}</div>
         <div style="font-size: 0.8rem; opacity: 0.8; display: flex; flex-wrap: wrap; gap: 15px;">
-            <span>🌡️ Feels Like: ${data.feels_like ? data.feels_like.toFixed(1) : 'N/A'}°C</span>
+            <span>🌡️ Feels Like: ${data.feels_like ? Math.round(data.feels_like) : 'N/A'}°C</span>
             <span>💧 Humidity: ${data.humidity || 'N/A'}%</span>
             <span>💨 Wind: ${data.wind_speed || 'N/A'} m/s</span>
             <span>🕒 Updated: ${data.timestamp || 'Live'}</span>
@@ -226,8 +226,8 @@ function updateUI() {
                 <h2 style="font-size:1rem;">📍 ${city.city}</h2>
                 <span class="badge ${city.prediction === 'real' ? 'badge-real' : 'badge-fake'}">${city.prediction}</span>
             </div>
-            <div class="temp">${city.temperature ? city.temperature.toFixed(1) : 'N/A'}°C</div>
-            <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.5rem;">Feels like: ${city.feels_like ? city.feels_like.toFixed(1) : 'N/A'}°C</div>
+            <div class="temp">${city.temperature ? Math.round(city.temperature) : 'N/A'}°C</div>
+            <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.5rem;">Feels like: ${city.feels_like ? Math.round(city.feels_like) : 'N/A'}°C</div>
             <div style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:0.5rem;">${city.weather}</div>
             
             <div style="font-size: 0.6rem; color: var(--accent-green); margin-bottom: 1rem; font-weight: 700;">
