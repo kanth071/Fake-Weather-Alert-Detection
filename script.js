@@ -187,7 +187,15 @@ function updatePredictionPanel(data) {
     riskLevelText.innerHTML = `<span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:${riskColor}; margin-right:5px;"></span>${riskLabel}`;
     riskLevelText.style.color = riskColor;
     
-    recommendationPanel.innerText = data.recommendation;
+    recommendationPanel.innerHTML = `
+        <div style="margin-bottom: 10px;">${data.recommendation}</div>
+        <div style="font-size: 0.8rem; opacity: 0.8; display: flex; flex-wrap: wrap; gap: 15px;">
+            <span>🌡️ Feels Like: ${data.feels_like.toFixed(1)}°C</span>
+            <span>💧 Humidity: ${data.humidity}%</span>
+            <span>💨 Wind: ${data.wind_speed || 'N/A'} m/s</span>
+            <span>🕒 Updated: ${data.timestamp}</span>
+        </div>
+    `;
     
     // 4. Explainable AI
     const explanationList = document.getElementById('explanationList');
@@ -218,11 +226,12 @@ function updateUI() {
                 <h2 style="font-size:1rem;">📍 ${city.city}</h2>
                 <span class="badge ${city.prediction === 'real' ? 'badge-real' : 'badge-fake'}">${city.prediction}</span>
             </div>
-            <div class="temp">${Math.round(city.temperature)}°C</div>
+            <div class="temp">${city.temperature.toFixed(1)}°C</div>
+            <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.5rem;">Feels like: ${city.feels_like.toFixed(1)}°C</div>
             <div style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:0.5rem;">${city.weather}</div>
             
             <div style="font-size: 0.6rem; color: var(--accent-green); margin-bottom: 1rem; font-weight: 700;">
-                📶 Source: ${city.source || 'Verified Feed'}
+                📶 Source: ${city.source || 'Verified Feed'} | 🕒 ${city.timestamp || 'Live'}
             </div>
 
             <div style="font-size:0.75rem; background:rgba(255,255,255,0.03); padding:8px; border-radius:8px; text-align:left;">

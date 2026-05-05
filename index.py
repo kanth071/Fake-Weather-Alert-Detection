@@ -173,6 +173,7 @@ def live_weather():
     return jsonify({
         "city": weather_data["city"],
         "temperature": weather_data["temperature"],
+        "feels_like": weather_data.get("feels_like", weather_data["temperature"]),
         "weather": weather_data["condition"],
         "humidity": weather_data["humidity"],
         "wind_speed": weather_data.get("wind_speed", 0),
@@ -181,6 +182,7 @@ def live_weather():
         "explanation": ml_result["explanation"],
         "recommendation": get_recommendation(weather_data["temperature"], weather_data["condition"], weather_data["humidity"]),
         "source": weather_data["source"],
+        "timestamp": weather_data.get("timestamp", ""),
         "mock": weather_data.get("mock", False)
     })
 
@@ -196,11 +198,13 @@ def auto_feed():
             results.append({
                 "city": weather_data["city"],
                 "temperature": weather_data["temperature"],
+                "feels_like": weather_data.get("feels_like", weather_data["temperature"]),
                 "weather": weather_data["condition"],
                 "prediction": ml_result["prediction"],
                 "confidence": ml_result["confidence"],
                 "recommendation": get_recommendation(weather_data["temperature"], weather_data["condition"], weather_data["humidity"]),
-                "source": weather_data["source"]
+                "source": weather_data["source"],
+                "timestamp": weather_data.get("timestamp", "")
             })
     return jsonify(results)
 

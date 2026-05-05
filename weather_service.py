@@ -34,11 +34,11 @@ def get_live_weather(city):
         
     city_key = city.lower().strip()
     
-    # Check cache first (valid for 10 minutes)
+    # Check cache first (valid for 2 minutes)
     if city_key in live_cache:
         cached_data, timestamp = live_cache[city_key]
-        if time.time() - timestamp < 600:
-            logger.info(f"Returning cached weather for {city}")
+        if time.time() - timestamp < 120:
+            logger.info(f"Returning fresh cached weather for {city}")
             return cached_data
 
     # Attempt Real API Call
@@ -53,11 +53,13 @@ def get_live_weather(city):
                 result = {
                     "city": data["name"],
                     "temperature": round(data["main"]["temp"], 1),
+                    "feels_like": round(data["main"]["feels_like"], 1),
                     "condition": data["weather"][0]["description"],
                     "humidity": data["main"]["humidity"],
                     "wind_speed": data["wind"]["speed"],
                     "success": True,
                     "source": "OpenWeather Verified API",
+                    "timestamp": time.strftime('%H:%M:%S'),
                     "mock": False
                 }
                 live_cache[city_key] = (result, time.time())
