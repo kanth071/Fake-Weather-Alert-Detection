@@ -8,9 +8,18 @@ from dotenv import load_dotenv
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-load_dotenv()
+# Load .env from the absolute path of this script
+basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
 
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
+if not API_KEY:
+    logger.error("CRITICAL: OPENWEATHER_API_KEY not found in environment!")
+else:
+    # Redact most of the key for security in logs
+    redacted_key = API_KEY[:4] + "*" * (len(API_KEY) - 8) + API_KEY[-4:]
+    logger.info(f"API Key detected: {redacted_key}")
+
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast"
 
@@ -57,6 +66,8 @@ def get_live_weather(city):
                 logger.warning(f"Invalid API Key for OpenWeather.")
             elif response.status_code == 404:
                 logger.warning(f"City '{city}' not found.")
+            else:
+                logger.warning(f"API Error: {response.status_code}")
                 
         except Exception as e:
             logger.error(f"API Error fetching weather: {e}")
@@ -83,11 +94,9 @@ def get_forecast(city):
             
             if response.status_code == 200:
                 data = response.json()
-                # Process forecast: take 1st item (today/soon) and items at ~24h intervals
                 forecast_list = data["list"]
                 processed_forecast = []
                 
-                # Get next few days (approx 24h intervals)
                 for i in range(0, min(len(forecast_list), 40), 8):
                     item = forecast_list[i]
                     processed_forecast.append({
@@ -104,16 +113,13 @@ def get_forecast(city):
     return None
 
 def get_weather_history(city, current_temp=None):
-    # Since historical data is often paid, we use real forecast data for future points
-    # and simulated data for past points to keep the UI rich.
     city_key = city.lower().strip()
-    
     forecast = get_forecast(city)
     
-    # Generate realistic history (Yesterday)
     import random
     random.seed(city_key + "_hist")
-    base_temp = current_temp if current_temp is not None else 25
+    # Use a more realistic base temp if current_temp is missing
+    base_temp = current_temp if current_temp is not None else 32
     yesterday_temp = base_temp + random.uniform(-2, 2)
     random.seed()
 
@@ -123,10 +129,9 @@ def get_weather_history(city, current_temp=None):
         "condition": "scattered clouds"
     }
 
-    # If we have real forecast, use it for "Tomorrow"
     tomorrow_item = {
         "day": "Tomorrow",
-        "temperature": current_temp + 2 if current_temp else 27, # default fallback
+        "temperature": round(base_temp + 1, 1),
         "condition": "clear sky"
     }
     
@@ -145,8 +150,9 @@ def get_mock_weather(city):
     
     conditions = ["clear sky", "few clouds", "scattered clouds", "broken clouds", "shower rain", "rain", "thunderstorm"]
     city_hash = sum(ord(c) for c in city)
-    base_temp = 15 + (city_hash % 20)
-    temp = base_temp + random.uniform(-2, 2)
+    # Defaulting mock data to a warmer range (25-42°C) to match user's expected climate
+    base_temp = 25 + (city_hash % 17) 
+    temp = base_temp + random.uniform(-1, 1)
     humidity = 40 + (city_hash % 45)
     
     random.seed()

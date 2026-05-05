@@ -85,7 +85,7 @@ class WeatherMLModel:
         Simplified XAI logic as requested by user.
         Generates explanations based on temperature and humidity thresholds.
         """
-        temp = weather_data.get('temperature', 25)
+        temp = weather_data.get('temperature', 35)
         humidity = weather_data.get('humidity', 50)
         explanations = []
 
