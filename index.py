@@ -96,8 +96,7 @@ def predict():
         result['recommendation'] = get_recommendation(weather_data["temperature"], weather_data["condition"], weather_data["humidity"])
         return jsonify(result)
 
-# Chat Memory
-chat_memory = {"last_city": "vijayawada"}
+chat_memory = {"last_city": "hyderabad"}
 
 @app.route('/agent', methods=['POST'])
 def ai_agent():
@@ -187,7 +186,7 @@ def live_weather():
 
 @app.route('/auto-feed', methods=['GET'])
 def auto_feed():
-    cities = ["Vijayawada", "Hyderabad", "Chennai", "Mumbai", "Delhi", "Bangalore"]
+    cities = ["Vijayawada", "Hyderabad", "Chennai", "Mumbai"]
     results = []
     for city in cities:
         weather_data = get_live_weather(city)

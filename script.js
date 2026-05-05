@@ -160,7 +160,7 @@ function updatePredictionPanel(data) {
     // 1. Prediction Enhancement
     const status = data.prediction.toUpperCase();
     const icon = status === 'REAL' ? '✅' : '🚨';
-    predictionStatus.innerText = `${status} ALERT (${data.confidence}%) ${icon}`;
+    predictionStatus.innerText = `Prediction: ${status} (${data.confidence}%) ${icon}`;
     predictionStatus.style.color = status === 'REAL' ? 'var(--accent-green)' : 'var(--accent-red)';
     
     // 2. Confidence Bar
@@ -187,13 +187,7 @@ function updatePredictionPanel(data) {
     riskLevelText.innerHTML = `<span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:${riskColor}; margin-right:5px;"></span>${riskLabel}`;
     riskLevelText.style.color = riskColor;
     
-    recommendationPanel.innerHTML = `
-        <div style="margin-bottom: 10px;">${data.recommendation}</div>
-        <div style="font-size: 0.8rem; opacity: 0.8; display: flex; gap: 15px;">
-            <span>💨 Wind: ${data.wind_speed || 'N/A'} m/s</span>
-            <span>💧 Humidity: ${data.humidity}%</span>
-        </div>
-    `;
+    recommendationPanel.innerText = data.recommendation;
     
     // 4. Explainable AI
     const explanationList = document.getElementById('explanationList');
@@ -202,7 +196,12 @@ function updatePredictionPanel(data) {
         data.explanation.forEach(reason => {
             const li = document.createElement('li');
             li.style.cssText = "display: flex; align-items: flex-start; gap: 12px; margin-bottom: 0.8rem; font-size: 0.9rem;";
-            li.innerHTML = `<span>🔹</span> <span>${reason}</span>`;
+            const parts = reason.split(' → ');
+            if (parts.length === 2) {
+                li.innerHTML = `<span style="color: var(--accent-blue); font-weight: 700; background: rgba(56,189,248,0.1); padding: 2px 6px; border-radius: 4px;">${parts[0]}</span> <span style="color: var(--text-secondary);">→ ${parts[1]}</span>`;
+            } else {
+                li.innerHTML = `<span>🔹</span> <span>${reason}</span>`;
+            }
             explanationList.appendChild(li);
         });
     }
