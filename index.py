@@ -78,6 +78,10 @@ def predict():
         
         result = ml_model.predict(text=text, weather_data=weather_data)
         result['detected_city'] = detected_city
+        result['feels_like'] = weather_data.get('feels_like', weather_data.get('temperature', 35))
+        result['humidity'] = weather_data.get('humidity', 50)
+        result['wind_speed'] = weather_data.get('wind_speed', 0)
+        result['timestamp'] = weather_data.get('timestamp', 'Live')
         
         from recommendation import manual_recommendation
         result['recommendation'] = manual_recommendation(text, result['prediction'])
