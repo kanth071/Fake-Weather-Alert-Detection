@@ -124,21 +124,61 @@ async function fetchFocusCityDetails(cityName) {
     } catch (error) {}
 }
 
+async function updateTrendChart(cityName) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/history?city=${cityName}`);
+        const data = await response.json();
+        const history = data.history;
+        const currentTemp = data.current_temp;
+        
+        document.getElementById('trendCity').innerText = cityName;
+        
+        // Use history[0] (Yesterday) and history[1] (Tomorrow/Forecast)
+        const yesterdayTemp = history && history.length > 0 ? history[0].temperature : (currentTemp - 2);
+        const forecastTemp = history && history.length > 1 ? history[1].temperature : (currentTemp + 2);
+        
+        const bars = [
+            { id: 'barYesterday', t: yesterdayTemp },
+            { id: 'barToday', t: currentTemp },
+            { id: 'barForecast', t: forecastTemp }
+        ];
+        
+        bars.forEach(b => {
+            const el = document.getElementById(b.id);
+            if (el) {
+                // Ensure height is at least 10% for visibility
+                el.style.height = `${Math.max(10, Math.min(b.t * 2.5, 100))}%`;
+                el.querySelector('.bar-val').innerText = `${Math.round(b.t)}°C`;
+            }
+        });
+    } catch (error) {
+        console.error("Trend update error:", error);
+    }
+}
+
 function updatePredictionPanel(data) {
-    // 1. Prediction Enhancement (with confidence %)
+    // 1. Prediction Enhancement
     const status = data.prediction.toUpperCase();
     const icon = status === 'REAL' ? '✅' : '🚨';
-    predictionStatus.innerText = `Prediction: ${status} (${data.confidence}%) ${icon}`;
+    predictionStatus.innerText = `${status} ALERT (${data.confidence}%) ${icon}`;
     predictionStatus.style.color = status === 'REAL' ? 'var(--accent-green)' : 'var(--accent-red)';
     
-    // 2. Confidence Bar Improvement (label on bar)
+    // 2. Confidence Bar
     confidenceText.innerText = `${data.confidence}%`;
     confidenceBar.style.width = `${data.confidence}%`;
     confidenceBar.innerText = `${data.confidence}%`;
     
-    // 3. Risk Level UI (Color Coding + Dot)
+    // 3. Risk Level UI
     const riskLevelText = document.getElementById('riskLevelText');
-    let riskVal = data.prediction === 'fake' ? 85 : (data.weather_data && data.weather_data.temperature > 35 ? 60 : 20);
+    let riskVal = 20;
+    if (data.prediction === 'fake') {
+        riskVal = 85;
+    } else if (data.temperature > 38 || data.humidity > 80) {
+        riskVal = 70;
+    } else if (data.temperature > 30 || data.humidity > 60) {
+        riskVal = 45;
+    }
+    
     let riskLabel = riskVal > 80 ? "HIGH" : (riskVal > 40 ? "MEDIUM" : "LOW");
     let riskColor = riskVal > 80 ? 'var(--accent-red)' : (riskVal > 40 ? 'var(--accent-yellow)' : 'var(--accent-green)');
     
@@ -147,42 +187,25 @@ function updatePredictionPanel(data) {
     riskLevelText.innerHTML = `<span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:${riskColor}; margin-right:5px;"></span>${riskLabel}`;
     riskLevelText.style.color = riskColor;
     
-    recommendationPanel.innerText = data.recommendation;
+    recommendationPanel.innerHTML = `
+        <div style="margin-bottom: 10px;">${data.recommendation}</div>
+        <div style="font-size: 0.8rem; opacity: 0.8; display: flex; gap: 15px;">
+            <span>💨 Wind: ${data.wind_speed || 'N/A'} m/s</span>
+            <span>💧 Humidity: ${data.humidity}%</span>
+        </div>
+    `;
     
-    // 4. Explainable AI Improvement (Keyword-based)
+    // 4. Explainable AI
     const explanationList = document.getElementById('explanationList');
     explanationList.innerHTML = '';
     if (data.explanation && data.explanation.length > 0) {
         data.explanation.forEach(reason => {
             const li = document.createElement('li');
             li.style.cssText = "display: flex; align-items: flex-start; gap: 12px; margin-bottom: 0.8rem; font-size: 0.9rem;";
-            const parts = reason.split(' → ');
-            if (parts.length === 2) {
-                li.innerHTML = `<span style="color: var(--accent-blue); font-weight: 700; background: rgba(56,189,248,0.1); padding: 2px 6px; border-radius: 4px;">${parts[0]}</span> <span style="color: var(--text-secondary);">→ ${parts[1]}</span>`;
-            } else {
-                li.innerHTML = `<span>🔹</span> <span>${reason}</span>`;
-            }
+            li.innerHTML = `<span>🔹</span> <span>${reason}</span>`;
             explanationList.appendChild(li);
         });
     }
-}
-
-async function updateTrendChart(cityName) {
-    try {
-        const response = await fetch(`${API_BASE_URL}/history?city=${cityName}`);
-        const data = await response.json();
-        const history = data.history;
-        const currentTemp = data.current_temp;
-        document.getElementById('trendCity').innerText = cityName;
-        const bars = [{ id: 'barYesterday', t: history[0].temperature }, { id: 'barToday', t: currentTemp }, { id: 'barForecast', t: currentTemp + 2 }];
-        bars.forEach(b => {
-            const el = document.getElementById(b.id);
-            if (el) {
-                el.style.height = `${Math.min(b.t * 2.5, 100)}%`;
-                el.querySelector('.bar-val').innerText = `${Math.round(b.t)}°C`;
-            }
-        });
-    } catch (error) {}
 }
 
 function updateUI() {
