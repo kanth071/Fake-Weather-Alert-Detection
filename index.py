@@ -134,7 +134,7 @@ def _build_full_weather_report(weather_data, city):
     ts = weather_data.get("timestamp", "Live")
 
     resp = f"🌍 Live Weather Report — {city.capitalize()}\n"
-    resp += f"━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+    resp += f"------------------\n"
     resp += f"🌡️ Temperature: {temp}°C (Feels like {feels}°C)\n"
     resp += f"☁️ Condition: {cond}\n"
     resp += f"💧 Humidity: {hum}%\n"
@@ -235,7 +235,7 @@ def ai_agent():
             t1, t2 = w1.get("temperature", 0), w2.get("temperature", 0)
             diff = abs(t1 - t2)
             hotter = cities_found[0] if t1 > t2 else cities_found[1]
-            resp = f"🔄 Weather Comparison\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            resp = f"🔄 Weather Comparison\n------------------\n"
             resp += f"📍 {cities_found[0].capitalize()}: {t1}°C — {w1.get('condition', 'N/A').capitalize()}\n"
             resp += f"📍 {cities_found[1].capitalize()}: {t2}°C — {w2.get('condition', 'N/A').capitalize()}\n\n"
             resp += f"🌡️ {hotter.capitalize()} is warmer by {round(diff, 1)}°C."
@@ -248,7 +248,7 @@ def ai_agent():
         history_data = get_weather_history(effective_city, current_temp=temp)
         history, _ = history_data
 
-        resp = f"📊 Weather Trend — {effective_city.capitalize()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        resp = f"📊 Weather Trend — {effective_city.capitalize()}\n------------------\n"
         for item in history:
             resp += f"• {item['day']}: {item['temperature']}°C ({item['condition'].capitalize()})\n"
         resp += f"• Today: {temp}°C ({condition.capitalize()})\n"
@@ -292,7 +292,7 @@ def ai_agent():
         is_severe = any(s in condition for s in severe_conds)
 
         if is_severe:
-            resp = f"🚨 SEVERE WEATHER ALERT — {effective_city.capitalize()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            resp = f"🚨 SEVERE WEATHER ALERT — {effective_city.capitalize()}\n------------------\n"
             resp += f"⚠️ Current: {condition.capitalize()}\n"
             resp += f"💨 Wind: {wind} m/s | 💧 Humidity: {humidity}%\n\n"
             resp += f"🛑 Safety advice:\n• Stay indoors and avoid travel\n• Keep away from windows\n• Follow official local alerts"
@@ -310,7 +310,7 @@ def ai_agent():
     if any(x in user_query for x in ["temperature", "temp", "hot", "cold", "warm", "cool", "heat",
                                        "chill", "chilly", "freeze", "freezing", "degree",
                                        "celsius", "fahrenheit", "feels like", "thermal"]):
-        resp = f"🌡️ Temperature Report — {effective_city.capitalize()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        resp = f"🌡️ Temperature Report — {effective_city.capitalize()}\n------------------\n"
         resp += f"• Current: {temp}°C\n"
         resp += f"• Feels Like: {feels_like}°C\n"
         resp += f"• Condition: {condition.capitalize()}\n\n"
@@ -331,7 +331,7 @@ def ai_agent():
 
     # ── Humidity / moisture ──
     if any(x in user_query for x in ["humid", "humidity", "moisture", "muggy", "sticky", "damp", "dry"]):
-        resp = f"💧 Humidity Report — {effective_city.capitalize()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        resp = f"💧 Humidity Report — {effective_city.capitalize()}\n------------------\n"
         resp += f"• Humidity: {humidity}%\n"
         resp += f"• Temperature: {temp}°C | Feels Like: {feels_like}°C\n\n"
         if humidity > 80:
@@ -346,7 +346,7 @@ def ai_agent():
 
     # ── Wind ──
     if any(x in user_query for x in ["wind", "windy", "breeze", "gust", "breezy"]):
-        resp = f"💨 Wind Report — {effective_city.capitalize()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        resp = f"💨 Wind Report — {effective_city.capitalize()}\n------------------\n"
         resp += f"• Wind Speed: {wind} m/s\n"
         resp += f"• Condition: {condition.capitalize()}\n\n"
         if wind > 15:
@@ -364,7 +364,7 @@ def ai_agent():
                                        "flight", "outdoor", "outside", "picnic", "hike", "hiking",
                                        "jogging", "walk", "walking", "run", "running", "exercise",
                                        "go out", "go outside", "step out", "outing", "event"]):
-        resp = f"✈️ Travel & Outdoor Advisory — {effective_city.capitalize()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        resp = f"✈️ Travel & Outdoor Advisory — {effective_city.capitalize()}\n------------------\n"
         resp += f"🌡️ {temp}°C (Feels like {feels_like}°C) | {condition.capitalize()}\n"
         resp += f"💧 Humidity: {humidity}% | 💨 Wind: {wind} m/s\n\n"
 
@@ -388,12 +388,12 @@ def ai_agent():
     if any(x in user_query for x in ["wear", "cloth", "dress", "outfit", "attire", "jacket", "sweater",
                                        "raincoat", "sunglasses", "sunscreen", "hat", "cap"]):
         advice = get_recommendation(temp, condition, humidity)
-        return jsonify({"response": f"👕 Clothing Advice — {effective_city.capitalize()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n🌡️ {temp}°C | {condition.capitalize()}\n\n{advice}"})
+        return jsonify({"response": f"👕 Clothing Advice — {effective_city.capitalize()}\n------------------\n🌡️ {temp}°C | {condition.capitalize()}\n\n{advice}"})
 
     # ── Fake/real alert verification ──
     if any(x in user_query for x in ["fake", "real", "genuine", "hoax", "rumor", "rumour", "verify",
                                        "check alert", "is this true", "believe", "trust"]):
-        resp = f"🔍 Alert Verification — {effective_city.capitalize()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        resp = f"🔍 Alert Verification — {effective_city.capitalize()}\n------------------\n"
         resp += f"Current verified data: {temp}°C, {condition.capitalize()}, {humidity}% humidity\n\n"
         resp += "To verify a weather alert:\n"
         resp += "1️⃣ Switch to **Manual Mode** above\n"
@@ -418,7 +418,7 @@ def ai_agent():
         else:
             time_ctx = "It's currently night 🌙"
 
-        resp = f"🕐 Time-based Weather — {effective_city.capitalize()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        resp = f"🕐 Time-based Weather — {effective_city.capitalize()}\n------------------\n"
         resp += f"{time_ctx}\n"
         resp += f"🌡️ {temp}°C (Feels like {feels_like}°C)\n"
         resp += f"☁️ {condition.capitalize()} | 💧 {humidity}%\n\n"

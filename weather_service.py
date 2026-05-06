@@ -156,14 +156,18 @@ def get_mock_weather(city):
         if resp.status_code == 200:
             data = resp.json()
             current = data['current_condition'][0]
+            wind_kmph = float(current.get('windspeedKmph', 0))
+            wind_ms = round(wind_kmph / 3.6, 1)
             return {
                 "city": city.capitalize(),
                 "temperature": float(current['temp_C']),
                 "feels_like": float(current['FeelsLikeC']),
                 "condition": current['weatherDesc'][0]['value'].lower(),
                 "humidity": int(current['humidity']),
+                "wind_speed": wind_ms,
                 "success": True,
                 "source": "wttr.in (Fallback API)",
+                "timestamp": time.strftime('%H:%M:%S'),
                 "mock": False
             }
     except Exception as e:
@@ -188,7 +192,9 @@ def get_mock_weather(city):
         "feels_like": round(temp + random.uniform(1, 3), 1),
         "condition": random.choice(conditions),
         "humidity": humidity,
+        "wind_speed": round(random.uniform(1, 8), 1),
         "success": True,
         "source": "AI Simulation Engine (Fallback)",
+        "timestamp": time.strftime('%H:%M:%S'),
         "mock": True
     }
