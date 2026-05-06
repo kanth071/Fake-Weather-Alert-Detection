@@ -2,7 +2,15 @@ import requests
 import os
 import time
 import logging
+from datetime import datetime, timezone, timedelta
 from dotenv import load_dotenv
+
+# IST timezone (UTC+5:30)
+IST = timezone(timedelta(hours=5, minutes=30))
+
+def get_ist_time():
+    """Return current time formatted in IST."""
+    return datetime.now(IST).strftime('%H:%M:%S')
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -59,7 +67,7 @@ def get_live_weather(city):
                     "wind_speed": data["wind"]["speed"],
                     "success": True,
                     "source": "OpenWeather Verified API",
-                    "timestamp": time.strftime('%H:%M:%S'),
+                    "timestamp": get_ist_time(),
                     "mock": False
                 }
                 live_cache[city_key] = (result, time.time())
@@ -167,7 +175,7 @@ def get_mock_weather(city):
                 "wind_speed": wind_ms,
                 "success": True,
                 "source": "wttr.in (Fallback API)",
-                "timestamp": time.strftime('%H:%M:%S'),
+                "timestamp": get_ist_time(),
                 "mock": False
             }
     except Exception as e:
@@ -195,6 +203,6 @@ def get_mock_weather(city):
         "wind_speed": round(random.uniform(1, 8), 1),
         "success": True,
         "source": "AI Simulation Engine (Fallback)",
-        "timestamp": time.strftime('%H:%M:%S'),
+        "timestamp": get_ist_time(),
         "mock": True
     }
