@@ -147,6 +147,29 @@ def get_weather_history(city, current_temp=None):
     return [history_item, tomorrow_item], current_temp
 
 def get_mock_weather(city):
+    # Attempt to fetch from an unauthenticated API (wttr.in) as a primary fallback
+    # to avoid large temperature differences compared to the real world
+    try:
+        import requests
+        logger.info(f"Attempting to fetch real weather from wttr.in for {city}...")
+        resp = requests.get(f"https://wttr.in/{city}?format=j1", timeout=5)
+        if resp.status_code == 200:
+            data = resp.json()
+            current = data['current_condition'][0]
+            return {
+                "city": city.capitalize(),
+                "temperature": float(current['temp_C']),
+                "feels_like": float(current['FeelsLikeC']),
+                "condition": current['weatherDesc'][0]['value'].lower(),
+                "humidity": int(current['humidity']),
+                "success": True,
+                "source": "wttr.in (Fallback API)",
+                "mock": False
+            }
+    except Exception as e:
+        logger.warning(f"wttr.in fallback failed: {e}")
+
+    # Final fallback to simulation engine if all APIs fail
     import random
     random.seed(city.lower().strip())
     
@@ -162,6 +185,7 @@ def get_mock_weather(city):
     return {
         "city": city.capitalize(),
         "temperature": round(temp, 1),
+        "feels_like": round(temp + random.uniform(1, 3), 1),
         "condition": random.choice(conditions),
         "humidity": humidity,
         "success": True,
