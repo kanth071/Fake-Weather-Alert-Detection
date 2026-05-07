@@ -120,7 +120,7 @@ chat_memory = {"last_city": "hyderabad"}
 def _flag_response(reason):
     """Return a flagged response for inappropriate or off-topic queries."""
     return jsonify({
-        "response": f"🚩 **Flagged**: {reason}\n\nI'm an AI Weather Intelligence Assistant. I can only help with weather-related queries such as:\n• Current weather & forecasts\n• Rain, storm & safety alerts\n• Travel & outdoor planning\n• Clothing recommendations\n• Climate trends & history\n\nPlease ask me something weather-related!"
+        "response": f"🚩 **Flagged**: {reason}\n\nI'm an AI Weather Intelligence Assistant. I can only help with weather-related queries such as:\n• Current weather & forecasts\n• Rain, storm & safety alerts\n• Travel & outdoor planning\n• Climate trends & history\n\nPlease ask me something weather-related!"
     })
 
 def _build_full_weather_report(weather_data, city):
@@ -155,10 +155,9 @@ def _is_weather_related(query):
         "uv", "ultraviolet", "sunburn", "sunscreen", "pollution", "air quality", "aqi",
         "forecast", "prediction", "tomorrow", "yesterday", "today", "tonight", "morning",
         "afternoon", "evening", "week", "weekend",
-        "umbrella", "raincoat", "jacket", "sweater", "sunglasses",
         "outdoor", "travel", "trip", "picnic", "hike", "hiking", "jogging", "walk",
         "drive", "driving", "commute", "flight", "fly",
-        "wear", "cloth", "dress", "outfit", "recommend",
+        "recommend",
         "safe", "safety", "danger", "dangerous", "risk", "alert", "warning",
         "degree", "celsius", "fahrenheit", "pressure", "barometer",
         "visibility", "sunrise", "sunset", "feels like",
@@ -182,7 +181,7 @@ def ai_agent():
     greetings = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening",
                  "how are you", "what's up", "sup", "howdy", "namaste", "hola"]
     if any(user_query.strip() == g or user_query.startswith(g + " ") or user_query.startswith(g + ",") for g in greetings):
-        return jsonify({"response": "👋 Hello! I'm your AI Weather Intelligence Assistant.\n\nHere's what I can do:\n• 🌡️ Live weather for any city\n• 🌧️ Rain & storm risk analysis\n• 📊 48-hour trends & forecasts\n• 👕 Clothing & lifestyle advice\n• ✈️ Travel weather planning\n• 🔍 Fake alert detection\n\nJust ask me anything weather-related!"})
+        return jsonify({"response": "👋 Hello! I'm your AI Weather Intelligence Assistant.\n\nHere's what I can do:\n• 🌡️ Live weather for any city\n• 🌧️ Rain & storm risk analysis\n• 📊 48-hour trends & forecasts\n• ✈️ Travel weather planning\n• 🔍 Fake alert detection\n\nJust ask me anything weather-related!"})
 
     # ── Thank you / goodbye ──
     if any(x in user_query for x in ["thank", "thanks", "bye", "goodbye", "see you", "take care"]):
@@ -190,7 +189,7 @@ def ai_agent():
 
     # ── Help / what can you do ──
     if any(x in user_query for x in ["help", "what can you do", "what do you do", "your features", "capabilities"]):
-        return jsonify({"response": "🤖 I'm your AI Weather Intelligence Assistant! Here's what I can help with:\n\n🌡️ **Live Weather** — \"What's the weather in Mumbai?\"\n🌧️ **Rain Check** — \"Will it rain in Chennai today?\"\n📊 **Trends** — \"Show me forecast for Delhi\"\n👕 **Advice** — \"What should I wear in Bangalore?\"\n✈️ **Travel** — \"Is it safe to travel to Hyderabad?\"\n🔍 **Verify Alerts** — \"Is this storm warning real?\"\n🌡️ **Compare** — \"Is Mumbai hotter than Delhi?\"\n\nJust type any weather question!"})
+        return jsonify({"response": "🤖 I'm your AI Weather Intelligence Assistant! Here's what I can help with:\n\n🌡️ **Live Weather** — \"What's the weather in Mumbai?\"\n🌧️ **Rain Check** — \"Will it rain in Chennai today?\"\n📊 **Trends** — \"Show me forecast for Delhi\"\n✈️ **Travel** — \"Is it safe to travel to Hyderabad?\"\n🔍 **Verify Alerts** — \"Is this storm warning real?\"\n🌡️ **Compare** — \"Is Mumbai hotter than Delhi?\"\n\nJust type any weather question!"})
 
     # ── Flag: Inappropriate / harmful / off-topic content ──
     flagged_patterns = [
@@ -272,16 +271,16 @@ def ai_agent():
             resp = f"🌧️ Yes! It is currently raining in {effective_city.capitalize()}.\n"
             resp += f"• Condition: {condition.capitalize()}\n"
             resp += f"• Humidity: {humidity}%\n"
-            resp += f"☂️ Carry an umbrella and avoid open areas."
+            resp += f"Stay safe and avoid open areas."
         elif high_humidity:
             resp = f"⚠️ No rain right now in {effective_city.capitalize()}, but humidity is high ({humidity}%).\n"
             resp += f"• Condition: {condition.capitalize()}\n"
-            resp += f"🌂 Rain is possible — carrying an umbrella would be wise."
+            resp += f"Rain is possible soon."
         else:
             resp = f"☀️ No rain expected in {effective_city.capitalize()} right now.\n"
             resp += f"• Condition: {condition.capitalize()}\n"
             resp += f"• Humidity: {humidity}%\n"
-            resp += f"✅ Skies look clear. No umbrella needed!"
+            resp += f"✅ Skies look clear."
         return jsonify({"response": resp})
 
     # ── Storm / severe weather / safety ──
@@ -320,13 +319,13 @@ def ai_agent():
         elif temp >= 35:
             resp += "🟠 Very hot conditions. Limit outdoor exposure and drink plenty of water."
         elif temp >= 30:
-            resp += "🟡 Warm weather. Light clothing recommended. Stay hydrated."
+            resp += "🟡 Warm weather. Stay hydrated."
         elif temp >= 20:
             resp += "🟢 Pleasant temperature. Great for outdoor activities!"
         elif temp >= 10:
-            resp += "🔵 Cool weather. A light jacket is recommended."
+            resp += "🔵 Cool weather."
         else:
-            resp += "❄️ Cold conditions. Bundle up with warm layers!"
+            resp += "❄️ Cold conditions."
         return jsonify({"response": resp})
 
     # ── Humidity / moisture ──
@@ -370,7 +369,7 @@ def ai_agent():
 
         issues = []
         if any(r in condition for r in ["rain", "storm", "thunder"]):
-            issues.append("🌧️ Rain/storms detected — carry rain gear")
+            issues.append("🌧️ Rain/storms detected")
         if temp >= 38:
             issues.append("🔥 Extreme heat — carry water & sunscreen")
         if wind > 10:
@@ -384,11 +383,10 @@ def ai_agent():
             resp += "✅ Weather looks great for outdoor activities! Enjoy your day."
         return jsonify({"response": resp})
 
-    # ── Clothing / what to wear ──
+    # ── Clothing / what to wear (Explicitly Disabled) ──
     if any(x in user_query for x in ["wear", "cloth", "dress", "outfit", "attire", "jacket", "sweater",
                                        "raincoat", "sunglasses", "sunscreen", "hat", "cap"]):
-        advice = get_recommendation(temp, condition, humidity)
-        return jsonify({"response": f"👕 Clothing Advice — {effective_city.capitalize()}\n------------------\n🌡️ {temp}°C | {condition.capitalize()}\n\n{advice}"})
+        return jsonify({"response": "🤖 I am sorry, but I do not provide clothing advice. I strictly focus on weather reports, forecasts, and safety alerts."})
 
     # ── Fake/real alert verification ──
     if any(x in user_query for x in ["fake", "real", "genuine", "hoax", "rumor", "rumour", "verify",
